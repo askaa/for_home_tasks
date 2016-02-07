@@ -1,5 +1,5 @@
 raise ArgumentError, "wrong number of arguments (#{ARGV.length} for 4)" unless ARGV.length == 4
-ARGV.each{ |a| raise TypeError, 'you should input only positive numbers' unless a.to_i > 0}
+ARGV.each{ |a| raise TypeError, 'you should enter numeric values' if a.match(/\d/) == nil }
 
 first_c = [ARGV[0].to_i, ARGV[1].to_i]
 second_c = [ARGV[2].to_i, ARGV[3].to_i]
