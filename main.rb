@@ -1,16 +1,4 @@
-raise ArgumentError, "wrong number of arguments (#{ARGV.length} for 4)" unless ARGV.length == 4
-ARGV.each{ |a| raise TypeError, 'you should enter numeric values' if a.match(/\d/) == nil }
+require_relative 'developer/developer'
+require_relative 'developer/junior_developer'
+require_relative 'developer/senior_developer'
 
-first_c = [ARGV[0].to_i, ARGV[1].to_i]
-second_c = [ARGV[2].to_i, ARGV[3].to_i]
-
-case
-  when first_c == second_c
-    puts 'Точка найдена!'
-  when first_c[1] == second_c[1]
-    puts 'Y координата верна, X нет'
-  when first_c[0] == second_c[0]
-    puts 'X координата верна, Y нет'
-  else
-    puts 'Близко, но нет'
-end
