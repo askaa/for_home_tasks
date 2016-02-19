@@ -14,7 +14,7 @@ class Developer
   end
 
   def tasks
-    @tasks.each_with_index.map { |task, index| "#{index + 1}. #{task}" }
+    @tasks.each_with_index.map { |task, index| "#{index + 1}. #{task}" }.join("\n")
   end
 
   def work!
@@ -45,8 +45,9 @@ class Developer
   end
 
   def make_task
-    puts %Q{#{@name}: выполнена задача "#{@tasks.first}". Осталось задач: #{@tasks.length - 1}}
-    @tasks.shift
+    unless @tasks.empty?
+      puts %Q{#{@name}: выполнена задача "#{@tasks.shift}". Осталось задач: #{@tasks.length}}
+    end
   end
 
 end

@@ -10,7 +10,7 @@ class JuniorDeveloper < Developer
   end
 
   def work!
-    puts %Q{#{@name}: пытаюсь делать задачу "#{@tasks.first}". Осталось задач: #{@tasks.length - 1}}
+    puts %Q{#{@name}: пытаюсь делать задачу "#{@tasks.first}". Осталось задач: #{@tasks.length}}
     super
   end
 
