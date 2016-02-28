@@ -4,6 +4,10 @@ class JuniorDeveloper < Developer
 
   MAX_TASKS = 5
 
+  def group
+    @group = :juniors
+  end
+
   def add_task(task)
     raise ArgumentError, 'Слишком сложно!' if task.length > 20
     super

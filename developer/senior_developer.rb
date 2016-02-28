@@ -9,6 +9,10 @@ class SeniorDeveloper < Developer
     rand > 0.5 ? (puts 'Что-то лень') : 2.times { make_task }
   end
 
+  def group
+    @group = :seniors
+  end
+
 end
 
 

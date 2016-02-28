@@ -2,9 +2,19 @@ class Developer
 
     MAX_TASKS = 10
 
+    attr_reader :group, :name
+
   def initialize(name)
     @name = name
     @tasks = []
+  end
+
+  def group
+    @group = :developers
+  end
+
+  def number_of_tasks
+    @tasks.length
   end
 
   def add_task(task)
@@ -23,12 +33,11 @@ class Developer
   end
 
   def status
-    result = case @tasks.length
-               when 0 then 'свободен'
-               when 1..max_tasks-1 then 'работаю'
-               else 'занят'
-             end
-    puts result
+    case @tasks.length
+      when 0 then 'свободен'
+      when 1..max_tasks-1 then 'работаю'
+      else 'занят'
+    end
   end
 
   def can_add_task?
