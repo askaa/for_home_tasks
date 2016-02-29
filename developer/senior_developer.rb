@@ -10,7 +10,7 @@ class SeniorDeveloper < Developer
   end
 
   def group
-    @group = :seniors
+    :seniors
   end
 
 end

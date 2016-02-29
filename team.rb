@@ -1,63 +1,69 @@
 require_relative 'developer/developer'
 require_relative 'developer/junior_developer'
 require_relative 'developer/senior_developer'
- class Team
+class Team
 
-   attr_reader :seniors, :developers, :juniors
+  attr_reader :seniors, :developers, :juniors
 
-   def initialize(&block)
-     @team = []
-     @priority = []
-     instance_eval &block
-     group_team
-   end
+  def initialize(&block)
+    @team = []
+    @priority = []
+    @message = {}
+    instance_eval &block
 
-   def add_task(task)
-    sorted = @team.select{|person| person.can_add_task?}
-         .sort_by{|person| [@priority.index(person.group), person.number_of_tasks]}
-     sorted.first.add_task(task)
-   end
+  end
 
-   def priority(*classes)
-     classes.each {|c| @priority << c }
-   end
+  def add_task(task)
+    sorted = @team.select { |dev| dev.can_add_task? }
+                 .sort_by { |dev| [@priority.index(dev.group), dev.number_of_tasks] }
+    dev = sorted.first
+    dev.add_task(task)
+    @message[formatter(dev.group)].call(dev, task)
+  end
 
-   def all
-     @team
-   end
+  def priority(*classes)
+    classes.each { |c| @priority << c }
+  end
 
-   def report
-     @team.each { |person| puts "#{person.name} (#{person.group}): #{person.tasks.gsub("\n", ', ')}" }
-   end
+  def developers
+    @team.select{ |person| person.group == :developers }
+  end
 
-   private
-   def have_seniors(*names)
-     names.map{ |name| @team << SeniorDeveloper.new(name) }
-   end
+  def seniors
+    @team.select{ |person| person.group == :seniors }
+  end
 
-   def have_developers(*names)
-     names.map{ |name| @team << Developer.new(name) }
-   end
+  def juniors
+    @team.select{ |person| person.group == :juniors }
+  end
 
-   def have_juniors(*names)
-     names.map{ |name| @team << JuniorDeveloper.new(name) }
-   end
+  def all
+    @team
+  end
 
-    def group_team
-      @developers = [], @seniors = [], @juniors = []
-      @team.each do |person|
-        case person
-          when SeniorDeveloper then @seniors << person
-          when JuniorDeveloper then @juniors << person
-          else @developers << person
-        end
-      end
-    end
+  def report
+    @team.each { |dev| puts "#{dev.name} (#{formatter(dev.group)}): #{dev.tasks.gsub("\n", ', ')}" }
+  end
 
-   def on_task(&block)
-     block.call #
-   end
+  private
+  def have_seniors(*names)
+    names.map { |name| @team << SeniorDeveloper.new(name) }
+  end
 
- end
+  def have_developers(*names)
+    names.map { |name| @team << Developer.new(name) }
+  end
 
+  def have_juniors(*names)
+    names.map { |name| @team << JuniorDeveloper.new(name) }
+  end
 
+  def on_task (type, &block)
+    @message[type] = block if block_given?
+  end
+
+  def formatter(type)
+    type.to_s.chop.to_sym
+  end
+
+end

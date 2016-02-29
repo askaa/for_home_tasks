@@ -5,7 +5,7 @@ class JuniorDeveloper < Developer
   MAX_TASKS = 5
 
   def group
-    @group = :juniors
+    :juniors
   end
 
   def add_task(task)

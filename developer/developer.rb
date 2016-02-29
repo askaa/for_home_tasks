@@ -2,7 +2,7 @@ class Developer
 
     MAX_TASKS = 10
 
-    attr_reader :group, :name
+    attr_reader :name
 
   def initialize(name)
     @name = name
@@ -10,7 +10,7 @@ class Developer
   end
 
   def group
-    @group = :developers
+    :developers
   end
 
   def number_of_tasks
