@@ -10,7 +10,6 @@ class Team
     @priority = []
     @message = {}
     instance_eval &block
-
   end
 
   def add_task(task)
@@ -18,11 +17,7 @@ class Team
                  .sort_by { |dev| [@priority.index(dev.group), dev.number_of_tasks] }
     dev = sorted.first
     dev.add_task(task)
-    @message[formatter(dev.group)].call(dev, task)
-  end
-
-  def priority(*classes)
-    classes.each { |c| @priority << c }
+    @message[formatter(dev.group)].call(dev, task) if @message[formatter(dev.group)]
   end
 
   def developers
@@ -56,6 +51,10 @@ class Team
 
   def have_juniors(*names)
     names.map { |name| @team << JuniorDeveloper.new(name) }
+  end
+
+  def priority(*classes)
+    classes.each { |c| @priority << c }
   end
 
   def on_task (type, &block)
