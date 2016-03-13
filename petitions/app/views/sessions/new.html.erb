@@ -1,0 +1,19 @@
+
+<h2>Вход</h2>
+<%= form_tag sessions_path do %>
+<div class="row">
+  <div class="col-sm-6">
+    <form class="form">
+      <div class="form-group">
+        <label class="control-label">Email</label>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Пароль</label>
+        <%= password_field_tag :password %>
+      </div>
+      <div class="actions"><%= submit_tag "Войти" %></div>
+    </form>
+  </div>
+</div>
+<% end %>

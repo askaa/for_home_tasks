@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Petitions</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">Онлайн петиции нашего района</a>
+    <div class="pull-right" style="margin: 10px">
+          <span >
+          <% if current_user %>
+            <%= current_user.email %>
+                (<%= link_to 'Выйти', logout_path %>)
+          <% else %>
+            <%= link_to 'Зарегистироваться', signup_path %> |
+                <%= link_to 'Войти', login_path %>
+          <% end %>
+          </span>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-4">
+  <div class="panel panel-primary sidebar-right">
+    <div class="panel-body">
+      <ul class="nav">
+        <li><%= link_to 'Все петиции', all_petitions_path %></li>
+        <li><%= link_to 'Создать петицию', create_petition_path %></li>
+        <li><%= link_to 'Мои петиции', my_petitions_path if current_user%></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="container">
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "flash_#{name}" %>
+  <% end %>
+
+  <%= yield %>
+
+</div>
+</body>
+</html>
