@@ -1,24 +1,19 @@
 <h2>Мои петиции</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Петиция</th>
+    <th>Дата создания</th>
+    <th>Голоса</th>
+    <th colspan="2">Действия</th>
+  </tr>
 
-
-
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Петиции</th>
-      <th>Автор</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% current_user.petitions.each do |petition| %>
-    <tr>
-      <td>
-        <a><%= link_to petition.title, petition_path(petition) %></a>
-      </td>
-      <td><%= petition.author %></td>
-    </tr>
-    </tbody>
-    <% end %>
-  </table>
-</div>
+  <% current_user.petitions.each do |petition| %>
+      <tr>
+        <td><%= link_to petition.title, petition_path(petition) %></td>
+        <td><%= petition.created_at.strftime("%d/%m/%Y %H:%M")%></td>
+        <td><%= petition.votes.count %></td>
+        <td><%= link_to 'Изменить', edit_petition_path(petition) %> </td>
+        <td> <%= link_to 'Удалить', petition_path(petition), method: :delete %>  </td>
+      </tr>
+  <% end %>
+</table>
