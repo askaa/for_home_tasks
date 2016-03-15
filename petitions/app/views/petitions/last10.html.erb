@@ -1,0 +1,21 @@
+<h2>Последние петиции</h2>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Петиции</th>
+      <th>Автор</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @petitions.each do |petition| %>
+        <tr>
+          <td>
+            <a><%= link_to petition.title, petition_path(petition) %></a>
+          </td>
+          <td><%= petition.author %></td>
+        </tr>
+        </tbody>
+    <% end %>
+    </table>
+</div>
