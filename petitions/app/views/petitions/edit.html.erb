@@ -1,0 +1,28 @@
+<h1> Редактирование петиции </h1>
+
+<%= form_for :petition, url: petition_path(@petition), method: :patch do |f| %>
+    <% if @petition.errors.any? %>
+        <div class="error_messages">
+          <h2>Form is invalid</h2>
+          <ul>
+            <% @petition.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <p>
+      <label class="control-label">Название</label>
+      <%= f.text_field :title, class: 'form-control' %>
+    </p>
+
+    <p>
+      <label class="control-label">Описание</label>
+      <%= f.text_area :text, class: 'form-control', rows: 5 %>
+    </p>
+    <p>
+      <button type="submit" class="btn btn-success"><% f.submit %>Сохранить изменения</button>
+    </p>
+<% end %>
+
+

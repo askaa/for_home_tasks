@@ -1,50 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Petitions</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.1, maximum-scale=0, minimum-scale=1, user-scalable=no"/>
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <title>index</title>
 </head>
 <body>
+<div class="wrapper">
+  <div class="header">
+    <div class="container clearfix">
+      <div class="left">
+        <a href="#" class="text-muted"><%= link_to 'Онлайн петиции нашего района', root_path %></a>
+      </div>
 
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">Онлайн петиции нашего района</a>
-    <div class="pull-right" style="margin: 10px">
-          <span >
+      <div class="right">
+         <span >
           <% if current_user %>
             <%= current_user.email %>
-                (<%= link_to 'Выйти', logout_path %>)
+               (<%= link_to 'Выйти', logout_path %>)
           <% else %>
             <%= link_to 'Зарегистироваться', signup_path %> |
-                <%= link_to 'Войти', login_path %>
+               <%= link_to 'Войти', login_path %>
           <% end %>
           </span>
+      </div>
+    </div>
+  </div>
+  <div class="container content">
+    <div class="row">
+      <div class="col-sm-8">
+        <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, id: "flash_#{name}" %>
+        <% end %>
+
+        <%= yield %>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-primary sidebar-right">
+          <div class="panel-body">
+            <ul class="nav">
+              <li><%= link_to 'Все петиции', all_petitions_path %></li>
+              <li><%= link_to 'Создать петицию', create_petition_path %></li>
+              <li><%= link_to 'Мои петиции', my_petitions_path if current_user%></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="col-sm-4">
-  <div class="panel panel-primary sidebar-right">
-    <div class="panel-body">
-      <ul class="nav">
-        <li><%= link_to 'Все петиции', all_petitions_path %></li>
-        <li><%= link_to 'Создать петицию', create_petition_path %></li>
-        <li><%= link_to 'Мои петиции', my_petitions_path if current_user%></li>
-      </ul>
-    </div>
+<div class="footer">
+  <div class="container">
+    &copy; Company 2016
   </div>
-</div>
-
-<div id="container">
-
-  <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, id: "flash_#{name}" %>
-  <% end %>
-
-  <%= yield %>
-
 </div>
 </body>
 </html>
+

@@ -28,6 +28,27 @@ class PetitionsController < ApplicationController
     @petitions = Petition.last(10)
   end
 
+  def update
+    @petition = Petition.find(params[:id])
+    if @petition.update(petition_params)
+      flash[:success] = 'Петиция обновлена'
+      redirect_to my_petitions_path
+    else
+      render 'edit'
+    end
+  end
+
+  def edit
+    @petition = Petition.find(params[:id])
+  end
+
+  def destroy
+    @petition = Petition.find(params[:id])
+    @petition.destroy
+    flash[:success] = 'Петиция удалена'
+    redirect_to my_petitions_path
+  end
+
   private
   def petition_params
     params.require(:petition).permit(:title, :text, :author)

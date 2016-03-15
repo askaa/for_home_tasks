@@ -1,21 +1,18 @@
 <h2>Последние петиции</h2>
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Петиции</th>
-      <th>Автор</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @petitions.each do |petition| %>
-        <tr>
-          <td>
-            <a><%= link_to petition.title, petition_path(petition) %></a>
-          </td>
-          <td><%= petition.author %></td>
-        </tr>
-        </tbody>
-    <% end %>
-    </table>
-</div>
+<table class="table table-striped">
+  <tr>
+    <th>Петиция</th>
+    <th>Автор</th>
+    <th>Голоса</th>
+    <th>Дата создания</th>
+  </tr>
+
+  <% @petitions.each do |petition| %>
+      <tr>
+        <td><%= link_to petition.title, petition_path(petition) %></td>
+        <td><%= petition.author %></td>
+        <td><%= petition.votes.count %></td>
+        <td><%= petition.created_at.strftime("%d/%m/%Y %H:%M")%></td>
+      </tr>
+  <% end %>
+</table>

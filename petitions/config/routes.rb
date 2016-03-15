@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :users
-  resources :petitions
+  resources :petitions do
+    resources :votes
+  end
   resources :sessions
 
   get 'signup', to: 'users#new', as: 'signup'
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'create_petition', to: 'petitions#new', as: 'create_petition'
   get 'my_petitions', to: 'petitions#personal_petitions', as: 'my_petitions'
-  get 'all_petitions', to: 'petitions#last10', as: 'all_petitions'
+  get 'all_petitions', to: 'petitions#index', as: 'all_petitions'
 
   root 'petitions#last10'
 
